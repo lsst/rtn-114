@@ -1,5 +1,5 @@
 
-\section{Pipeline}
+\section{Pipeline} \label{sec:pipeline}
 
 %\note{following LDM-151}
 \todo{consider a (simplified?) pipeline graph}
@@ -100,19 +100,10 @@ The Alert Distribution Kafka system is deployed at the USDF using Kubernetes.
 \eric{schema management}
 
 Because of the large size of the alert packets and the short latency requirement, bandwidth out of the US Data Facility (USDF) at SLAC limits the number of direct recepients of the full alert stream.
-Seven community alert brokers were selected through a proposal process \eric{cite} to receive the full alert stream directly from the USDF:
-\eric{list}
-Two additional brokers will operate downstream of a full-stream broker.
-
-
-\subsection{Alert Filtering Service}
-
-ANTARES system
-
-community alert filters
+Seven community alert brokers were selected through a proposal process \eric{cite} to receive the full alert stream directly from the USDF (\S \ref{sec:brokers}).
 
 \subsection{Forced Photometry}
 
 \subsection{Source Injection}
 
-\subsection{Metrics and Monitoring}
+\subsection{Metrics}

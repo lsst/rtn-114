@@ -18,13 +18,18 @@
 \usepackage{xspace} % grids of plots
 \usepackage{subcaption}
 \captionsetup{compatibility=false}
+\usepackage{xcolor}
 
 % TODO notes 
 \usepackage[colorinlistoftodos]{todonotes}
 \let\Oldtodo\todo
 \renewcommand{\todo}[1]{\Oldtodo[inline]{#1}}
-\newcommand{\eric}[2][]{\Oldtodo[inline,color=blue, #1]{Eric: #2}}
+\newcommand{\eric}[2][]{\Oldtodo[inline,color=cyan, #1]{Eric: #2}}
+\newcommand{\ian}[2][]{\Oldtodo[inline,color=red, #1]{Ian: #2}}
+\newcommand{\bruno}[2][]{\Oldtodo[inline,color=green, #1]{Bruno: #2}}
 \newcommand{\bri}[2][]{\Oldtodo[inline,color=purple, #1]{Bri: #2}}
+\newcommand{\jake}[2][]{\Oldtodo[inline,color=yellow, #1]{Jake: #2}}
+\newcommand{\gregory}[2][]{\Oldtodo[inline,color=lime, #1]{Gregory: #2}}
 \newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO:} #1}}
 
 % Local commands go here.
@@ -101,10 +106,17 @@
 \listoftodos
 
 \input{intro}
+\input{observations}
+
+\input{data_products}
 \input{pipeline}
-\input{data}
-\input{environment}
+
+\input{processing}
+
 \input{performance}
+
+\input{data_services}
+
 \input{conclusion}
 
 
