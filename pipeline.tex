@@ -4,6 +4,8 @@
 %\note{following LDM-151}
 \todo{consider a (simplified?) pipeline graph}
 
+\todo{emphasize not a static/permanent release; evolving over time}
+
 \subsection{Template Generation}
 
 %\note{Pre-DR1 this may require description independent of DRP.}
@@ -14,19 +16,23 @@
 
 \subsection{Single Frame Processing}
 
-%\note{Construction of calibration products assumed described in \cite{PSTN-026}.}
-
-ISR, PSF and Background fitting, photometric and astrometric calibration.  Likely major commonalities with DRP.
+ISR, PSF and Background fitting, photometric and astrometric calibration.  Likely major commonalities with DRP; perhaps point to DP2 paper and describe any differences
 
 \subsection{Image Differencing}
 
+including background subtraction
+
 \subsection{Source Detection and Measurement}
 
-Including discussion of point source, dipole, and streak detection on difference images.  
+Including discussion of point source, dipole, and trail detection on difference images.  
 
 %\note{Algorithmic basics could be discussed elsewhere}
 
 \subsection{Initial Filtering} \label{sec:filtering}
+
+\todo{glint detection}
+
+\todo{satellite filtering}
 
 \texttt{FilterDiaSourceCatalogTask} in \texttt{lsst.ap.association}
 
