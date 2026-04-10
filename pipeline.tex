@@ -1,6 +1,10 @@
 
 \section{Pipeline} \label{sec:pipeline}
 
+The Alert Production Pipelines are a specialized configuration of the LSST Science Pipelines.
+\citet{10.71929/rubin/2570545} provides a general overview of their design and capabilities.
+In this section we describe the detailed implementation used for Alert Production.
+
 %\note{following LDM-151}
 \todo{consider a (simplified?) pipeline graph}
 
@@ -12,7 +16,7 @@
 %
 %High-level discussion of DCR correction could go here.
 
-\subsection{Preload}
+\subsection{Preload} \label{sec:preload}
 
 \subsection{Single Frame Processing}
 
@@ -43,9 +47,11 @@ Among the raw detections, artifacts may dominate real astrophysical sources by a
 These may be due to imperfectly-corrected instrument signatures, astrometric mismatches between the template and the science image, cosmic rays, or algorithmic failures in the differencing.
 Modern surveys employ machine-learned classifiers to winnow these candidates \citep[e.g.,][]{Bailey:07:NearbySNFML,Bloom:12:RealBogus,Brink:13:RB2,Wright:15:PS1ML,Goldstein:15:DESRealBogus,Duev:19:Braii}.
 These have steadily improved in performance and sophistication as the classifiers transitioned from Random Forest models trained on manually-constructed feature sets to deep neural networks trained directly on image pixels.
-Some approaches have combined both detection and scoring without using the difference image \citep{Sedaghat:17:Transinet,Acero-Cuellar:22:NoDifference}.
+Some approaches have combined both detection and scoring without using the difference image \citep{Sedaghat:18:Transinet,Acero-Cuellar:23:NoDifference}.
 
 \todo{overview of the algorithm, training, and performance of the ML spuriousness score; detailed discussion likely deferred to separate paper}
+
+\citep{DMTN-337}
 
 \subsection{Catalog Transformation}
 
@@ -57,7 +63,7 @@ Some approaches have combined both detection and scoring without using the diffe
 
 Due to AP's real-time nature, it is not possible to perform \textit{post-facto} source association as in the annual data releases.
 Instead, spatial association is performed on-the-fly by the \texttt{DiaPipelineTask} within the \texttt{lsst.ap.association} package.
-A dedicated Alert Production Database (APDB; \S \ref{sec:db}) holds the current state of the system.
+A dedicated Alert Production Database (APDB; \S \ref{sec:apdb}) holds the current state of the system.
 
 During the preload step (\S \ref{sec:preload}), DIAObjects and SSObjects overlapping the expected field of view of the image are stored in the local prompt processing worker butler repository.
 The new DIASources are first spatially associated with the existing DIAObjects by finding the closest match within a maximum distance of one arcsecond.
@@ -103,10 +109,10 @@ Kafka provides a fault-tolerant, low-overhead mechanism to transmit large volume
 
 The Alert Distribution Kafka system is deployed at the USDF using Kubernetes.
 \bri{details of the deployment}
-\eric{schema management}
+\bri{schema management}
 
-Because of the large size of the alert packets and the short latency requirement, bandwidth out of the US Data Facility (USDF) at SLAC limits the number of direct recepients of the full alert stream.
-Seven community alert brokers were selected through a proposal process \eric{cite} to receive the full alert stream directly from the USDF (\S \ref{sec:brokers}).
+Because of the large size of the alert packets and the short latency requirement, bandwidth out of the US Data Facility (USDF) at SLAC limits the number of direct recipients of the full alert stream.
+Seven community alert brokers receive the full alert stream directly from the USDF (\S \ref{sec:brokers}).
 
 \subsection{Forced Photometry}
 

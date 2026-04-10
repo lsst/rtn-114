@@ -1,25 +1,32 @@
 \section{Introduction}
 
 Repeated observations of the night sky enable discovery of transient, variable, and moving objects, and time-domain measurements are one of the foundational techniques of astronomical science.
-The cadence of the observations, the intrinsic timescales of the phenomena, and the spatial volume probed by the observations set the rate of discovery  \eric{cite me; see also Tonry, Ofek}.
-In recent years, scientists have conducted dedicated optical time-domain surveys with large CCD mosaic cameras (e.g., PanSTARRS, DECam, ZTF, HSC, Gaia, Kepler, TESS) as well as distributed telescope networks (e.g., ASAS-SN, ATLAS, \eric{more}).
+The cadence of the observations, the intrinsic luminosities and timescales of the phenomena, and the spatial volume probed by the observations set the rate of discovery \citep{Bellm:16:Cadences}. 
+In recent years, scientists have conducted dedicated optical time-domain surveys with large CCD mosaic cameras (e.g., PanSTARRS, DECam, ZTF, HSC, Gaia, Kepler, TESS) as well as distributed telescope networks (e.g., ASAS-SN, ATLAS, KMT-Net, \eric{more}).
 These have yielded large new samples of supernovae, variable stars, active galactic nuclei, and solar system objects.
 Additionally, they have uncovered the first exemplars of rare new classes of objects \eric{add some examples: FBOTS, ISOs, asteroids interior to venus, ...}.
 
 Frequently, time-critical followup observations are necessary to classify and characterize objects discovered in time-domain surveys.
 Historically, human-composed circulars or telegrams were used to dissemenate discoveries to the wider community.
 The increasing rate of transient candidates as well as the desire for rapid automated followup motivated machine-readable alternatives \eric{VOEvent, GCN, SciMMA/HopSkotch, TNS}.
-These trends culminated in the public ``alert stream'' paradigm employed by ZTF \eric{cite Patterson}, in which hundreds of thousands of unfiltered difference image sources are shipped along with historical lightcurves and image cutouts to third-party alert brokers \eric{cites} for classification, filtering, and followup.
-This approach has enabled fully automated identification and reporting of supernova candidates.
+These trends culminated in the public ``alert stream'' paradigm employed by ZTF \citep{Patterson:19:ZTFAlertDistribution}, in which hundreds of thousands of unfiltered difference image sources are shipped along with historical lightcurves and image cutouts to third-party alert brokers for classification, filtering, and followup.
+This approach has enabled fully automated identification, reporting, and followup of supernova candidates \eric{cites}.
 
-The Legacy Survey of Space and Time (LSST) to be conducted by the Vera C.\ Rubin Observatory promises an order of magnitude \eric{confirm or cite} increase in transient discovery.
+The Legacy Survey of Space and Time (LSST) to be conducted by the Vera C.\ Rubin Observatory promises an order of magnitude increase in transient discovery.
 Rubin's large collecting area, wide field of view, and fast readout and slew will deliver nearly a thousand \eric{confirm} exposures across a wide swath of the Southern Hemisphere sky to unprecedented depths.
 This capability motivated the development of a rapid data processing pipeline to identify and publicize time-variable phenomena in LSST images: the Rubin Alert Production System (AP).
 Along with the annual Data Release Processing (DRP), these productions make use of the Rubin Science Pipelines software as well as the larger systems and infrastructure of Rubin Data Management (DM).
 \eric{cites throughout}
 
 In this paper, we describe the design, implementation, and initial performance of the Rubin Alert Production system.
-\eric{outline}
+In \S \ref{sec:observations} we detail the alert-producing observations taken to date.
+\S \ref{sec:data-products} presents the science data products resulting from alert production and \S \ref{sec:pipeline} describes the data processing pipelines which produce them\footnote{
+Discovery of new solar system objects from daytime processing of the prompt data products is not described here but is presented in \todo{appropriate citation}.}.
+We summarize the data processing environment and infrastructure in \S \ref{sec:data-processing}.
+We characterize the early scientific and technical performance of alert production in \S \ref{sec:performance}.
+In \S \ref{sec:services} and \S \ref{sec:support} we describe how data are served to scientists and the support channels available to users.
+We conclude in \S \ref{sec:conclusion}.
+
 
 %\note{See discussion on common material and timing considerations in \cite{PSTN-020}.}
 %\note{This outline proceeds assuming this paper is being produced at the end of commissioning/early operations, and some form of routine alert production is happening in operations based on commissioning-derived or incremental templates.

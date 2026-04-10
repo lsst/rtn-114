@@ -2,11 +2,32 @@
 
 \subsection{Community Alert Brokers} \label{sec:brokers}
 
-\eric{todo}
+Near real-time access to alert packets is available through services provided by community alert brokers.
+Due to limited bandwidth from the USDF, seven brokers were selected through a proposal process \citep{LDM-612} to receive the alert stream directly from the alert distribution system at the USDF (\S \ref{sec:alertdist}):  
+
+\begin{itemize}
+    \item ALeRCE: Automatic Learning for the Rapid Classification of Events
+    \item AMPEL: Alert Management, Photometry, and Evaluation of Light Curves
+    \item ANTARES: Arizona-NOIRLab Temporal Analysis and Response to Events System
+    \item Babamul
+    \item Fink
+    \item Lasair
+    \item Pitt-Google
+\end{itemize}
+
+As alert packets are world-public and freely sharable (\S \ref{sec:data-rights}), additional brokers and other services may operate ``downstream'' by connecting to full or filtered streams provided by the upstream brokers.
+As of this writing, downstream brokers include
+
+\begin{itemize}
+    \item Point of Interest Broker
+    \item SNAPS: Solar System Notification Alert Processing System 
+\end{itemize}
+
+\eric{provide citations}
 
 \subsection{Alert Filtering Service}
 
-\todo{ANATARES system, community alert filters}
+\melissa{ANTARES system, community alert filters}
 
 \subsection{Rubin Science Platform}
 
@@ -18,7 +39,7 @@
 
 \subsubsection{Butler Data Products}
 
-\subsubsection{Prompt Products Database}
+\subsubsection{Prompt Products Database} \label{sec:ppdb}
 
 \subsection{IDACs}
 

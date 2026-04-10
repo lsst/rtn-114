@@ -1,4 +1,4 @@
-\section{Prompt Data Products} \label{sec:data_products}
+\section{Prompt Data Products} \label{sec:data-products}
 
 
 \eric{
@@ -7,10 +7,29 @@ Describe key requirements that drive technical decisions.
 }
 
 
-\begin{itemize}
-  \item Alerts
-  \item Images
-  \item Prompt Catalogs and the PPDB
-\end{itemize}
 
 
+\subsection{Alerts}
+
+Alert packets are the primary data product for time-critical LSST science.
+Each alert packet is triggered by a single positive or negative detection on a difference image.
+This measurement is packaged with a variety of contextual information in order to enable downstream users to quickly identify events of interest without requiring followup queries to Rubin databases.
+
+Each alert packet contains
+\eric{complete contents--move out of Alert Generation section}
+
+\citep{DMTN-093} describes the alert packaging and schema versioning used in the alerts.
+\eric{pointer to alert\_packet repo}
+
+\subsection{Images}
+
+\subsection{Prompt Catalogs}
+
+\eric{point to schema browser.  forward reference the PPDB.}
+
+\subsection{Data Rights} \label{sec:data-rights}
+
+\citet{RDO-013} describes the Rubin Data Rights policies.
+In brief, alert packets are world-public and can be freely shared with anyone.
+Similarly, the contents of the PPDB are freely sharable, although direct access to the PPDB is restricted to Data Rights holders.
+All other data products are proprietary.
