@@ -78,28 +78,9 @@ For DIASources with no matching DIAObject or SSObject, a new DIAObject is create
 
 \subsection{Alert Generation}
 
-Each DIASource not filtered for quality purposes (\S \ref{sec:filtering}) produces an alert.
-To enable downstream users to quickly identify events of interest, the alert packets contain a range of information.  
-They include:
+Each DIASource not filtered for quality purposes (\S \ref{sec:filtering}) produces an alert (\S \ref{sec:alerts}).
 
-\begin{itemize}
-    \item The triggering DIASource record
-    \item The corresponding DIAObject or SSObject record
-    \item Any DIASource and DIAForcedSource records that exist, and difference image noise estimates where they do not, taken from the previous 12 months.
-    \item Cutout images of the science, template, and difference images.
-\end{itemize}
-\eric{confirm contents}
-
-The cutout images are packaged in the FITS format using the astropy \texttt{CCDData} class and include mask and variance planes, an estimate of the PSF, a World Coordinate System, and other metadata.
-Most cutouts are 30$\times$30 pixels but are expanded to a larger size for extended sources.
-The maximimum cutout size of \todo{confirm} allows cutouts to contain trailed Near Earth Asteroids traveling slower than ten degrees per day.
-
-Alerts are transmitted and stored in Apache Avro\footnote{\url{https://avro.apache.org/}} format, a strongly-schemaed compact binary serialization.
-However, the Avro standard includes its schemas as uncompressed ASCII.
-To conserve bandwidth, we therefore send alerts without including the schemas required to deserialize them.
-Instead, the schemas are stored in a separate schema registry and are referenced by a unique identifier in the alert packet.
-
-\eric{sizing estimates here or in initial performance section?}
+\eric{sizing estimates here or in initial performance section?  if not, collapse into next section}
 
 \subsection{Alert Distribution} \label{sec:alertdist}
 
