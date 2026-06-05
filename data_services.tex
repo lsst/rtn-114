@@ -30,7 +30,7 @@ As of this writing, downstream brokers include
 The original requirements on the Rubin Data Management system (DMS) specify that a ``basic, limited capacity, alert filtering service shall be provided that can be given user defined filters to reduce the alert stream to manageable levels" and that users of this service ``shall be able to use a predefined set of simple filters" \citep{LSE-61}.
 These requirements were written before the current brokers existed, and they are already providing beyond this basic required functionality.
 Instead of creating a redundant alert filtering service, Rubin staff are instead supporting the community to use alerts by creating and mainting a set of ``community filters", to be installed in the NOIRLab's ANTARES broker (chosen because of the NOIRLab connection).
-As described in \cite{RTN-090}, these community filters will cover a range of basic science use-cases and be generated based on community input.
+As described in \citet{RTN-090}, these community filters will cover a range of basic science use-cases and be generated based on community input.
 The first community filters are expected to be installed and validated by the fall of 2026.
 
 \subsection{Rubin Science Platform}
@@ -38,6 +38,12 @@ The first community filters are expected to be installed and validated by the fa
 \gregory{todo}
 
 \subsubsection{Alert Archive}
+
+Each alert packet is stored as-transmitted in the USDF.
+\citet{DMTN-183} describes the motivation for and implementation of the archive.
+An ingester service listens to the Kafka alert stream and writes each packet to a key-value store indexed by the alert ID.
+A front-end service, \texttt{herald} \citep{SQR-114}, allows authenticated users to retrieve individual alerts in Avro Open Container Format, JSON, or FITS.
+The Portal aspect of the Rubin Science Platform provides an Alert Visualizer which displays the image cutouts and catalog data.
 
 \subsubsection{Image Services}
 
