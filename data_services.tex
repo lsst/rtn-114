@@ -1,0 +1,56 @@
+\section{Data Access Services} \label{sec:services}
+
+\subsection{Community Alert Brokers} \label{sec:brokers}
+
+Near real-time access to alert packets is available through services provided by community alert brokers.
+Due to limited bandwidth from the USDF, seven brokers were selected through a proposal process \citep{LDM-612} to receive the alert stream directly from the alert distribution system at the USDF (\S \ref{sec:alertdist}):  
+
+\begin{itemize}
+    \item ALeRCE: Automatic Learning for the Rapid Classification of Events \citep{Forster:21:ALeRCE}
+    \item AMPEL: Alert Management, Photometry, and Evaluation of Light Curves \citep{Nordin:19:AMPEL}
+    \item ANTARES: Arizona-NOIRLab Temporal Analysis and Response to Events System \citep{Matheson:21:ANTARES}
+    \item Babamul  \citep{2025arXiv251100164J}
+    \item Fink \citep{Moller:21:FINK}
+    \item Lasair \citep{Smith:19:Lasair}
+    \item Pitt-Google
+\end{itemize}
+
+As alert packets are world-public and freely sharable (\S \ref{sec:data-rights}), additional brokers and other services may operate ``downstream'' by connecting to full or filtered streams provided by the upstream brokers.
+As of this writing, downstream brokers include
+
+\begin{itemize}
+    \item Point of Interest Broker
+    \item SNAPS: Solar System Notification Alert Processing System 
+\end{itemize}
+
+\eric{check broker sites if there are newer citations}
+
+\subsection{Alert Filtering Service}
+
+The original requirements on the Rubin Data Management system (DMS) specify that a ``basic, limited capacity, alert filtering service shall be provided that can be given user defined filters to reduce the alert stream to manageable levels" and that users of this service ``shall be able to use a predefined set of simple filters" \citep{LSE-61}.
+These requirements were written before the current brokers existed, and they are already providing beyond this basic required functionality.
+Instead of creating a redundant alert filtering service, Rubin staff are instead supporting the community to use alerts by creating and mainting a set of ``community filters", to be installed in the NOIRLab's ANTARES broker (chosen because of the NOIRLab connection).
+As described in \citet{RTN-090}, these community filters will cover a range of basic science use-cases and be generated based on community input.
+The first community filters are expected to be installed and validated by the fall of 2026.
+
+\subsection{Rubin Science Platform}
+
+\gregory{todo}
+
+\subsubsection{Alert Archive}
+
+Each alert packet is stored as-transmitted in the USDF.
+\citet{DMTN-183} describes the motivation for and implementation of the archive.
+An ingester service listens to the Kafka alert stream and writes each packet to a key-value store indexed by the alert ID.
+A front-end service, \texttt{herald} \citep{SQR-114}, allows authenticated users to retrieve individual alerts in Avro Open Container Format, JSON, or FITS.
+The Portal aspect of the Rubin Science Platform provides an Alert Visualizer which displays the image cutouts and catalog data.
+
+\subsubsection{Image Services}
+
+\subsubsection{Butler Data Products}
+
+\subsubsection{Prompt Products Database} \label{sec:ppdb}
+
+\subsection{IDACs}
+
+\todo{confirm IDAC section}
