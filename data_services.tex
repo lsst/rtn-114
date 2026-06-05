@@ -27,7 +27,11 @@ As of this writing, downstream brokers include
 
 \subsection{Alert Filtering Service}
 
-\melissa{ANTARES system, community alert filters}
+The original requirements on the Rubin Data Management system (DMS) specify that a ``basic, limited capacity, alert filtering service shall be provided that can be given user defined filters to reduce the alert stream to manageable levels" and that users of this service ``shall be able to use a predefined set of simple filters" \citep{LSE-61}.
+These requirements were written before the current brokers existed, and they are already providing beyond this basic required functionality.
+Instead of creating a redundant alert filtering service, Rubin staff are instead supporting the community to use alerts by creating and mainting a set of ``community filters", to be installed in the NOIRLab's ANTARES broker (chosen because of the NOIRLab connection).
+As described in \cite{RTN-090}, these community filters will cover a range of basic science use-cases and be generated based on community input.
+The first community filters are expected to be installed and validated by the fall of 2026.
 
 \subsection{Rubin Science Platform}
 
