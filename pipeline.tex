@@ -91,10 +91,35 @@ Kafka provides a fault-tolerant, low-overhead mechanism to transmit large volume
 
 The Alert Distribution Kafka system is deployed at the USDF using Kubernetes.
 \bri{details of the deployment}
+
+The Alert Distribution system is deployed via helm charts within the Sasquatch application, Rubin's Telemetry Service application.
+It is split into several different Helm charts which manage the deployment, `strimzi-kafka`, `alert-brokers', and `alert-database`.
+
+Within the `strimzi-kafka` chart, the Kafka nodepool, the controllers, and the kafka setup itself are managed. Alert topics and
+users are managed through the `alert-brokers` Helm chart. In the strimzi-kafka chart, the number of internal brokers is managed, the
+resource usage, and
+
+We manage Alert Distribution specific configurations in the `values-usdprod-prompt-processing.yaml', which uses the existing templates
+and configures them for the Alert Stream system.
+
+The Alert Database Ingester, which writes all alerts to the Alert Archive, is managed in `alert-database'. The ingester
+is an internal Alert Stream consumer, which reads the alerts in the current alert stream topic and writes them
+to the Alert Database Archive.
+
 \bri{schema management}
+ The Confluent Schema Registry allows us to maintain a version history of the alert schemas. The schema registry is published to
+ `rubin-alert-schemas.slac.stanford.edu`.
+
+The alert packets do not contain their own schemas. Instead, the associated schemas are stored in a Confluent Schema Registry.
+ When serialized via fastAvro, each packet is given a magic byte of 0, which indicates it is Confluent Avro wire format v0.
+ The next 4 bytes indicate the schema ID. This is the ID in the schema registry associated with the packets specific schema version.
+ To maintain consistency, we relate the schema version and schema ID. We follow a pattern where the schema ID is the version number encoded as an integer without the decimal point.
+ Schema version 10.0 would be given the schema ID 1000, schema version 10.1 would be schema 1001, and schema version 10.12 would be schema ID 1012 and so forth.
+ This allows for up to 99 minor versions within any major schema version. These schemas are synced to the schema registry via the
+ `alert-stream-schema-sync` chart, which loads in the schemas upon syncing the Alert Stream application within ArgoCD.
 
 Because of the large size of the alert packets and the short latency requirement, bandwidth out of the US Data Facility (USDF) at SLAC limits the number of direct recipients of the full alert stream.
-Seven community alert brokers receive the full alert stream directly from the USDF (\S \ref{sec:brokers}).
+Seven community alert brokers receive the full alert stream directly from the USDF. (\S \ref{sec:brokers}).
 
 \subsection{Forced Photometry}
 
