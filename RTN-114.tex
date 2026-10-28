@@ -3,13 +3,53 @@
 % Author guide:
 %   https://journals.aas.org/aastexguide/
 
-\documentclass[modern]{aastex7}
+% dvipsnames passed to xcolor
+\documentclass[twocolumn,twocolappendix, linenumbers, twocolappendix,trackchanges, dvipsnames]{aastex7}
 
 % Package imports go here.
+
+
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{mathtools, nccmath}
+\usepackage{hyperref}
+\usepackage[htt]{hyphenat} % Hyphenate texttt blocks
+\usepackage{xspace} % grids of plots
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+%\usepackage[dvipsnames]{xcolor} % already loaded in by aaxtex7, creates option class otherwise
+
+% TODO notes 
+\usepackage[colorinlistoftodos]{todonotes}
+\let\Oldtodo\todo
+\renewcommand{\todo}[1]{\Oldtodo[inline]{#1}}
+\newcommand{\eric}[2][]{\Oldtodo[inline,color=cyan, #1]{Eric: #2}}
+\newcommand{\ian}[2][]{\Oldtodo[inline,color=red, #1]{Ian: #2}}
+\newcommand{\bruno}[2][]{\Oldtodo[inline,color=green, #1]{Bruno: #2}}
+\newcommand{\bri}[2][]{\Oldtodo[inline,color=purple, #1]{Bri: #2}}
+\newcommand{\jake}[2][]{\Oldtodo[inline,color=yellow, #1]{Jake: #2}}
+\newcommand{\gregory}[2][]{\Oldtodo[inline,color=lime, #1]{Gregory: #2}}
+\newcommand{\melissa}[2][]{\Oldtodo[inline,color=Orchid, #1]{Melissa: #2}}
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{TODO:} #1}}
 
 % Local commands go here.
 \newcommand{\docRef}{RTN-114}
 \newcommand{\docUpstreamLocation}{\url{https://github.com/lsst/rtn-114}}
+\newcommand{\degsq}{$\rm deg^{2}$}
+
+%\providecommand{\secref}[1]{\hyperref[#1]{\autoref{#1}}}
+\providecommand{\secref}[1]{\hyperref[#1]{\S\ref{#1}}}
+\providecommand{\appref}[1]{\hyperref[#1]{Appendix \ref{#1}}}
+\providecommand{\tabref}[1]{\hyperref[#1]{\autoref{#1}}}
+\providecommand{\figref}[1]{\hyperref[#1]{\autoref{#1}}}
+\providecommand{\eqnref}[1]{\hyperref[#1]{Eq.~\ref{#1}}}
+\providecommand{\recref}[1]{\hyperref[#1]{REC-\ref{#1}}}
+
+
+% All graphics paths here 
+\graphicspath{./}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -44,19 +84,22 @@
 %%\graphicspath{{./}{figures/}}
 
 
+
+% Include the parameters file with the data
+\input{parameters}
+
+
 \begin{document}
 \doi{10.71929/rubin/3019817}
 \input{authors}
+\correspondingauthor{Eric C. Bellm, Ian Sullivan}
+
 \date{\today}
 \title{Alert Production with the Vera C. Rubin Observatory}
 
 % This can write metadata into the PDF.
 % Update keywords and author information as necessary.
-\hypersetup{
-    pdftitle={Alert Production with the Vera C. Rubin Observatory},
-    pdfauthor={RubinBuilderPaper},
-    pdfkeywords={}
-}
+\hypersetup{pdftitle={\@title}, pdfauthor={\@author}, pdfkeywords={\@keywords}}
 
 \input{abstract}
 
@@ -66,8 +109,24 @@
 %% You can use the \uat command to link your UAT concepts back its source.
 %% \keywords{\uat{Galaxies}{573} --- \uat{Cosmology}{343}}
 
-%% Main content as individual inputs.
-\input{body}
+\listoftodos
+
+\input{intro}
+\input{observations}
+
+\input{data_products}
+\input{pipeline}
+
+\input{processing}
+
+\input{performance}
+
+\input{data_services}
+
+\input{support}
+
+\input{conclusion}
+
 
 
 %% Modify acknowledgments as needed.
@@ -87,13 +146,18 @@ Additional Rubin Observatory funding comes from private donations, grants to uni
 %% parentheses, after the keyword, but they are not verified.
 
 \vspace{5mm}
-\facility{Rubin}
+\facility{Rubin:Simonyi (LSSTCam), Rubin:USDAC}
 
 %% Similar to \facility{}, there is the optional \software command to allow
 %% authors a place to specify which programs were used during the creation of
 %% the manuscript. Authors should list each code and include either a
 %% citation or url to the code inside ()s when available.
-\software{LSST Science Pipelines}
+\eric{review and update citations to use current DOIs}
+\software{Rubin Data Butler \citep{2022SPIE12189E..11J},
+          LSST Science Pipelines \citep{10.71929/rubin/2570545},
+          LSST Feature Based Scheduler v3.0  \citep{peter_yoachim_2024_13985198, Naghib_2019}
+          Astropy \citep{2013A&A...558A..33A, 2018AJ....156..123A, 2022ApJ...935..167A}
+          }
 
 %% Appendix material should be preceded with a single \appendix command.
 %% There should be a \section command for each appendix. Mark appendix
@@ -106,6 +170,7 @@ Additional Rubin Observatory funding comes from private donations, grants to uni
 
 %% \appendix
 
+%\printglossaries
 
 % Include all the relevant bib files so that references can be found from
 % lsst-texmf.

@@ -1,0 +1,50 @@
+\section{Prompt Data Products} \label{sec:data-products}
+
+
+\eric{
+Summary of relevant aspects of the DPDD \citep{LSE-163}, including latency considerations and user access.
+Describe key requirements that drive technical decisions.
+}
+
+
+
+
+\subsection{Alerts} \label{sec:alerts}
+
+Alert packets are the primary data product for time-critical LSST science.
+Each alert packet is triggered by a single positive or negative detection on a difference image.
+This measurement is packaged with a variety of contextual information in order to enable downstream users to quickly identify events of interest without requiring followup queries to Rubin databases.
+
+Each alert packet contains
+
+\begin{itemize}
+    \item The triggering DIASource record
+    \item The corresponding DIAObject or SSObject record
+    \item Any DIASource and DIAForcedSource records that exist, and difference image noise estimates where they do not, taken from the previous 12 months.
+    \item Cutout images of the science, template, and difference images.
+\end{itemize}
+\eric{confirm contents}
+
+The cutout images are packaged in the FITS format using the astropy \texttt{CCDData} class and include mask and variance planes, an estimate of the PSF, a World Coordinate System, and other metadata.
+Most cutouts are 30$\times$30 pixels but are expanded to a larger size for extended sources.
+The maximimum cutout size of 102$\times$102 pixels allows cutouts to contain trailed Near Earth Asteroids traveling slower than ten degrees per day while avoiding the performance impacts that would result from larger cutouts.
+
+Alerts are transmitted and stored in Apache Avro\footnote{\url{https://avro.apache.org/}} format, a strongly-schemaed compact binary serialization.
+However, the Avro standard includes its schemas as uncompressed ASCII.
+To conserve bandwidth, we therefore send alerts without including the schemas required to deserialize them.
+Instead, the schemas are stored in a separate schema registry and are referenced by a unique identifier in the alert packet.
+\citep{DMTN-093} describes the alert packaging and schema versioning used in the alerts.
+Avro alert schemas are programatically generated from the database schema definitions stored in the \texttt{lsst.sdm.schemas} package and can be found in the \texttt{lsst.alert.packet} repository\footnote{\url{https://github.com/lsst/alert_packet/}}.
+
+\subsection{Images} \label{sec:images}
+
+\subsection{Prompt Catalogs} \label{sec:catalogs}
+
+\eric{point to schema browser.  forward reference the PPDB.}
+
+\subsection{Data Rights} \label{sec:data-rights}
+
+\citet{RDO-013} describes the Rubin Data Rights policies.
+In brief, alert packets are world-public and can be freely shared with anyone.
+Similarly, the contents of the PPDB are freely sharable, although direct access to the PPDB is restricted to Data Rights holders.
+All other data products are proprietary.

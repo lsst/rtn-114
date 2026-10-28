@@ -8,4 +8,6 @@
 *.xdv
 *.dvi
 *.pdf
+*.tdo
 authors.tex
+RTN-114.synctex.gz
